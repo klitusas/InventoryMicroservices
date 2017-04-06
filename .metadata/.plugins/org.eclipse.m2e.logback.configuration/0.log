@@ -1,0 +1,23 @@
+2017-04-06 10:24:25,977 [Worker-11] INFO  o.e.m.c.i.l.LifecycleMappingFactory - Using org.eclipse.m2e.jdt.JarLifecycleMapping lifecycle mapping for MavenProject: com.products-service:products-service:0.0.1-SNAPSHOT @ /Users/andrejussolovjovas/Desktop/InventoryMicroservices/products-service/pom.xml.
+2017-04-06 10:24:27,808 [Worker-11] INFO  o.e.m.j.i.AbstractJavaProjectConfigurator - Adding source folder /products-service/src/main/java
+2017-04-06 10:24:27,809 [Worker-11] INFO  o.e.m.j.i.AbstractJavaProjectConfigurator - Adding resource folder /products-service/src/main/resources
+2017-04-06 10:24:27,816 [Worker-11] INFO  o.e.m.j.i.AbstractJavaProjectConfigurator - Adding resource folder /products-service/src/main/resources
+2017-04-06 10:24:27,830 [Worker-11] INFO  o.e.m.j.i.AbstractJavaProjectConfigurator - Adding source folder /products-service/src/test/java
+2017-04-06 10:24:28,999 [Worker-11] INFO  o.e.m.c.i.p.ProjectConfigurationManager - Imported and configured 1 project(s) in 4 sec
+2017-04-06 10:24:29,002 [Worker-11] INFO  o.e.m.c.i.p.ProjectConfigurationManager - Update started
+2017-04-06 10:24:29,492 [Worker-11] INFO  o.e.m.c.i.l.LifecycleMappingFactory - Using org.eclipse.m2e.jdt.JarLifecycleMapping lifecycle mapping for MavenProject: com.products-service:products-service:0.0.1-SNAPSHOT @ /Users/andrejussolovjovas/Desktop/InventoryMicroservices/products-service/pom.xml.
+2017-04-06 10:24:29,895 [Worker-11] INFO  o.e.m.j.i.AbstractJavaProjectConfigurator - Adding source folder /products-service/src/main/java
+2017-04-06 10:24:29,896 [Worker-11] INFO  o.e.m.j.i.AbstractJavaProjectConfigurator - Adding resource folder /products-service/src/main/resources
+2017-04-06 10:24:29,898 [Worker-11] INFO  o.e.m.j.i.AbstractJavaProjectConfigurator - Adding resource folder /products-service/src/main/resources
+2017-04-06 10:24:29,898 [Worker-11] INFO  o.e.m.j.i.AbstractJavaProjectConfigurator - Adding source folder /products-service/src/test/java
+2017-04-06 10:24:30,187 [Worker-11] INFO  o.e.m.c.i.p.ProjectConfigurationManager - Update completed: 1 sec
+2017-04-06 10:24:31,493 [Worker-6] INFO  o.e.m.c.i.embedder.EclipseLogger - Using 'UTF-8' encoding to copy filtered resources.
+2017-04-06 10:24:31,503 [Worker-6] INFO  o.e.m.c.i.embedder.EclipseLogger - Copying 1 resource
+2017-04-06 10:24:31,520 [Worker-6] INFO  o.e.m.c.i.embedder.EclipseLogger - Copying 0 resource
+2017-04-06 10:24:31,526 [Worker-6] INFO  o.e.m.c.i.embedder.EclipseLogger - Using 'UTF-8' encoding to copy filtered resources.
+2017-04-06 10:24:31,526 [Worker-6] INFO  o.e.m.c.i.embedder.EclipseLogger - skip non existing resourceDirectory /Users/andrejussolovjovas/Desktop/InventoryMicroservices/products-service/src/test/resources
+2017-04-06 10:24:33,065 [Worker-5] INFO  o.e.m.c.i.embedder.EclipseLogger - Using 'UTF-8' encoding to copy filtered resources.
+2017-04-06 10:24:33,067 [Worker-5] INFO  o.e.m.c.i.embedder.EclipseLogger - Copying 0 resource
+2017-04-06 10:24:33,068 [Worker-5] INFO  o.e.m.c.i.embedder.EclipseLogger - Copying 0 resource
+2017-04-06 10:24:33,069 [Worker-5] INFO  o.e.m.c.i.embedder.EclipseLogger - Using 'UTF-8' encoding to copy filtered resources.
+2017-04-06 10:24:33,069 [Worker-5] INFO  o.e.m.c.i.embedder.EclipseLogger - skip non existing resourceDirectory /Users/andrejussolovjovas/Desktop/InventoryMicroservices/products-service/src/test/resources
