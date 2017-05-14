@@ -1,0 +1,7 @@
+INDEX VERSION 1.3+/Users/andrejussolovjovas/Desktop/InventoryMicroservices/.metadata/.plugins/org.eclipse.wst.jsdt.core/indexes
+2375255469.index
+3334229120.index
+2242342111.index
+309499945.index
+2377236545.index
+3131121443.index

@@ -1,0 +1,97 @@
+<!DOCTYPE html>
+<html xmlns="http://www.w3.org/1999/xhtml"
+	xmlns:th="http://www.thymeleaf.org">
+
+<head>
+<title>Admin Page</title>
+<link rel="stylesheet" type="text/css" th:href="@{/css/home.css}" />
+<link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap.min.css">
+<script	src="https://ajax.googleapis.com/ajax/libs/jquery/3.1.1/jquery.min.js"></script>
+<script	src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/js/bootstrap.min.js"></script>
+<style>
+.flex-row {
+	display: flex;
+	flex-wrap: wrap;
+	margin-top: 10px;
+}
+.flex-row > [class*='col-'] {
+	display: flex;
+	flex-direction: column;
+}
+
+.flex-row .thumbnail,
+.flex-row .caption {
+	flex-direction: column;
+	display: flex;
+	flex: 1 0 auto;
+	height: auto;
+	position: relative;
+}
+.flex-text {
+	flex-grow: 1;
+}
+.flex-row img {
+    min-width: 0;
+    width: 50%;
+    margin-top: 10px;
+}
+</style>
+</head>
+
+<body>
+<!-- 	<div class="container">
+	
+		<form th:action="@{/logout}" method="get">
+			<button class="btn btn-md btn-danger btn-block" name="registration"
+				type="Submit">Logout</button>
+		</form>   -->  
+		
+<!-- 		<div class="panel-group" style="margin-top:40px">
+			<div class="panel panel-primary">
+				<div class="panel-heading">
+					<span th:utext="${userName}"></span>
+				</div>
+				 <div class="row">
+				  <div th:each="product : ${products}" >
+				  <div class="col-sm-5">
+				    <div class="card">
+				      <div class="card-block">
+				        <h3 class="card-title" th:text="${product.productName}"></h3>
+				        <p class="card-text"></p>
+				        <a th:href="@{http://localhost:8011/admin/product/{productId}(productId=${product.productId})}" class="btn btn-primary">Go somewhere</a>
+				      </div>
+				    </div>
+				  </div>
+				</div>
+			</div>
+		</div>
+		
+	</div> -->
+	<div class="container">
+		<form th:action="@{/logout}" method="get">
+			<button class="btn btn-md btn-danger btn-block" name="registration"
+				type="Submit">Logout</button>
+		</form>    
+	<div class="flex-row row">
+
+
+		<div class="col-xs-6 col-sm-4 col-lg-3" th:each="product : ${products}">
+			<div class="thumbnail ">
+				<img th:src="@{${product.imgUrl}}">
+				<div class="caption">
+					<h3><span th:text="${product.productName}"></span></h2>
+					<p class="flex-text text-muted" style="color: #777;font-size: 17px;margin-top: 10px;"><span th:text="${product.description}"></span></p>
+					<p>
+						<a class="btn btn-primary" th:href="@{http://localhost:8011/admin/product/{productId}(productId=${product.productId})}">Link</a>
+					</p>
+				</div>
+				<!-- /.caption -->
+			</div>
+			<!-- /.thumbnail -->
+		</div>
+
+	</div>
+	</div>
+</body>
+</html>
+

@@ -1,0 +1,10 @@
+package com.frontend;
+
+import org.springframework.stereotype.Controller;
+import org.springframework.web.servlet.config.annotation.WebMvcConfigurerAdapter;
+
+
+@Controller
+public class AuthenticationController extends WebMvcConfigurerAdapter {
+
+}

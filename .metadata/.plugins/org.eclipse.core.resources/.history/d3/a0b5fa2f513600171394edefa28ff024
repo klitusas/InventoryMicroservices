@@ -1,0 +1,121 @@
+package com.frontend;
+
+import java.io.InputStream;
+import java.io.InputStreamReader;
+import java.net.HttpURLConnection;
+import java.net.URL;
+import java.util.Arrays;
+import java.util.HashMap;
+import java.util.List;
+
+import javax.validation.Valid;
+
+import org.json.JSONArray;
+import org.json.JSONObject;
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
+import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.security.core.Authentication;
+import org.springframework.security.core.context.SecurityContextHolder;
+import org.springframework.stereotype.Controller;
+import org.springframework.validation.BindingResult;
+import org.springframework.web.bind.annotation.PathVariable;
+import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.bind.annotation.RequestMethod;
+import org.springframework.web.bind.annotation.RequestParam;
+import org.springframework.web.client.RestTemplate;
+import org.springframework.web.servlet.ModelAndView;
+
+import com.fasterxml.jackson.databind.ObjectMapper;
+import com.frontend.User;
+import com.frontend.UserService;
+import com.google.gson.JsonElement;
+import com.google.gson.JsonObject;
+import com.google.gson.JsonParser;
+import com.frontend.models.Product;
+
+@Controller
+public class LoginController {
+	private static final Logger log = LoggerFactory.getLogger(LoginController.class);
+	@Autowired
+	private UserService userService;
+
+	@RequestMapping(value={"/", "/login"}, method = RequestMethod.GET)
+	public ModelAndView login(){
+		ModelAndView modelAndView = new ModelAndView();
+		modelAndView.setViewName("login");
+		return modelAndView;
+	}
+	
+	
+	@RequestMapping(value="/registration", method = RequestMethod.GET)
+	public ModelAndView registration(){
+		ModelAndView modelAndView = new ModelAndView();
+		User user = new User();
+		modelAndView.addObject("user", user);
+		modelAndView.setViewName("registration");
+		return modelAndView;
+	}
+	
+	@RequestMapping(value = "/registration", method = RequestMethod.POST)
+	public ModelAndView createNewUser(@Valid User user, BindingResult bindingResult) {
+		ModelAndView modelAndView = new ModelAndView();
+		User userExists = userService.findUserByEmail(user.getEmail());
+		if (userExists != null) {
+			bindingResult
+					.rejectValue("email", "error.user",
+							"There is already a user registered with the email provided");
+		}
+		if (bindingResult.hasErrors()) {
+			modelAndView.setViewName("registration");
+		} else {
+			userService.saveUser(user);
+			modelAndView.addObject("successMessage", "User has been registered successfully");
+			modelAndView.addObject("user", new User());
+			modelAndView.setViewName("registration");
+			
+		}
+		return modelAndView;
+	}
+	
+	@RequestMapping(value="/admin/home", method = RequestMethod.GET, produces = "application/json")
+	public ModelAndView home(){
+//		RestTemplate restTemplate = new RestTemplate();
+		ModelAndView modelAndView = new ModelAndView();
+		Authentication auth = SecurityContextHolder.getContext().getAuthentication();
+		User user = userService.findUserByEmail(auth.getName());
+		String link = "http://localhost:8012/products";
+		try {
+			URL url = new URL(link);
+			HttpURLConnection requestLink = (HttpURLConnection) url.openConnection();
+			requestLink.connect();
+			JsonParser jp = new JsonParser();
+			JsonElement result = jp.parse(new InputStreamReader((InputStream) requestLink.getContent()));
+			ObjectMapper mapper = new ObjectMapper();
+			Product[] obj = mapper.readValue(new URL("http://localhost:8012/products"), Product[].class);
+			modelAndView.addObject("products",obj);
+			
+		}catch(Exception e){}
+//		Product[] products = restTemplate.getForObject(link, Product[].class);
+//		modelAndView.addObject("products",products[0].getProductName());
+		
+		modelAndView.addObject("userName", "Welcome " + user.getName() + " " + user.getLastName() + " (" + user.getEmail() + ")");
+		modelAndView.addObject("adminMessage","Content Avail able Only for Users with Admin Role");
+		modelAndView.setViewName("admin/home");
+		return modelAndView;
+	}
+	
+//	@RequestMapping(value="/admin/product", method = RequestMethod.GET, produces = "application/json")
+//	public ModelAndView details(@RequestParam(value="id") String productId ){
+	@RequestMapping(value="/admin/product/{Id}", method = RequestMethod.GET, produces = "application/json")
+	public ModelAndView details(@PathVariable(value="id") String productId ){
+		ModelAndView modelAndView = new ModelAndView();
+		try {
+			ObjectMapper mapper = new ObjectMapper();
+			Product obj = mapper.readValue(new URL("http://localhost:8012/products/details?id=" + productId), Product.class);
+			modelAndView.addObject("product",obj);
+			modelAndView.setViewName("admin/product");
+		}catch(Exception e){}
+	return modelAndView;
+	}
+}

@@ -1,0 +1,54 @@
+package com.products;
+
+import java.util.Set;
+
+import javax.persistence.CascadeType;
+import javax.persistence.Entity;
+import javax.persistence.GeneratedValue;
+import javax.persistence.Id;
+import javax.persistence.JoinColumn;
+import javax.persistence.OneToMany;
+
+@Entity
+public class Unit {
+	@Id
+	@GeneratedValue
+	Long id;
+	String name;
+	String location;
+	
+	@OneToMany(cascade=CascadeType.ALL)
+	@JoinColumn(name="unitId")
+	Set<Product> products; 
+	
+	public Unit() {
+		super();
+	}
+	
+	public Unit(String name, String location, Set<Product> products) {
+		this();
+		this.name = name;
+		this.location = location;
+		this.products = products;
+	}
+	public String getName() {
+		return name;
+	}
+	public void setName(String name) {
+		this.name = name;
+	}
+	public String getLocation() {
+		return location;
+	}
+	public void setLocation(String location) {
+		this.location = location;
+	}
+	public Set<Product> getProducts() {
+		return products;
+	}
+	public void setProducts(Set<Product> products) {
+		this.products = products;
+	}
+	 
+	
+}

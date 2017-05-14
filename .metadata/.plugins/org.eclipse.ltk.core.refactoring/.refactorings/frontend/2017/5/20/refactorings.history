@@ -1,0 +1,4 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<session version="1.0">
+<refactoring comment="Rename resource &apos;frontend/src/main/resources/static/db/db_structure.sql&apos; to &apos;data.sql&apos;" description="Rename resource &apos;db_structure.sql&apos;" flags="7" id="org.eclipse.ltk.core.refactoring.rename.resource" input="src/main/resources/static/db/db_structure.sql" name="data.sql" stamp="1494771807415" updateReferences="true"/>
+</session>

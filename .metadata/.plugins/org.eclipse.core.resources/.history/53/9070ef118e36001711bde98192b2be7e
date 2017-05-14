@@ -1,0 +1,20 @@
+DROP TABLE IF EXISTS `product`;
+CREATE TABLE `product` (
+  `product_id` int(11) NOT NULL AUTO_INCREMENT,
+  `product_name` varchar(255) NOT NULL,
+  `description` varchar(255) NOT NULL,
+  `img_url` varchar(255) NOT NULL,
+  `price` int(11) NOT NULL,
+  `inventory` int(11) NOT NULL,
+  PRIMARY KEY (`product_id`)
+) ENGINE=InnoDB AUTO_INCREMENT=4 DEFAULT CHARSET=utf8;
+
+INSERT INTO `product` (product_name,description,img_url,price,inventory) VALUES ('Jeans', 'Relaxed fit jeans - dark blue denim', 'https://cdn.shopify.com/s/files/1/0293/9277/products/Fashion_Nova_09-15_832_large.JPG?v=1491595940', 150, 30);
+INSERT INTO `product` (product_name,description,img_url,price,inventory) VALUES ('Topp og t-skjorter', 'VMBUTTERFLY - Bluser - black', 'https://mosaic01.ztat.net/vgs/media/pdp-gallery/VE/12/1E/0S/PQ/11/VE121E0SP-Q11@10.jpg', 100, 10);
+INSERT INTO `product` (product_name,description,img_url,price,inventory) VALUES ('Kjole', 'Sommerkjole - grey', 'https://mosaic01.ztat.net/vgs/media/pdp-gallery/DP/52/1C/10/1C/11/DP521C101-C11@10.jpg', 200, 50);
+INSERT INTO `product` (product_name,description,img_url,price,inventory) VALUES ('Slippers', 'black', 'https://mosaic01.ztat.net/vgs/media/pdp-zoom/EV/41/1E/A1/CQ/11/EV411EA1C-Q11@19.jpg', 190, 5);
+INSERT INTO `product` (product_name,description,img_url,price,inventory) VALUES ('Topp og t-skjorter', 'VMBUTTERFLY - Bluser - black', 'https://mosaic01.ztat.net/vgs/media/pdp-gallery/VE/12/1E/0S/PQ/11/VE121E0SP-Q11@10.jpg', 100, 10);
+INSERT INTO `product` (product_name,description,img_url,price,inventory) VALUES ('Topp og t-skjorter', 'VMBUTTERFLY - Bluser - black', 'https://mosaic01.ztat.net/vgs/media/pdp-gallery/VE/12/1E/0S/PQ/11/VE121E0SP-Q11@10.jpg', 100, 10);
+INSERT INTO `product` (product_name,description,img_url,price,inventory) VALUES ('Topp og t-skjorter', 'VMBUTTERFLY - Bluser - black', 'https://mosaic01.ztat.net/vgs/media/pdp-gallery/VE/12/1E/0S/PQ/11/VE121E0SP-Q11@10.jpg', 100, 10);
+INSERT INTO `product` (product_name,description,img_url,price,inventory) VALUES ('Topp og t-skjorter', 'VMBUTTERFLY - Bluser - black', 'https://mosaic01.ztat.net/vgs/media/pdp-gallery/VE/12/1E/0S/PQ/11/VE121E0SP-Q11@10.jpg', 100, 10);
+
