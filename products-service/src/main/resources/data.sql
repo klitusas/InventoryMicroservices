@@ -9,6 +9,27 @@ CREATE TABLE `product` (
   PRIMARY KEY (`product_id`)
 ) ENGINE=InnoDB AUTO_INCREMENT=134245561 DEFAULT CHARSET=utf8;
 
+--
+INSERT INTO `review` (product_id, review_title, review_description) VALUES (134245561, 'Susan', 'Very Fancy');
+INSERT INTO `review` (product_id, review_title, review_description) VALUES (134245561, 'Jessie', 'tight and awesome jeans');
+INSERT INTO `review` (product_id, review_title, review_description) VALUES (134245561, 'Luke', 'Didnt like the colour but material was nice');
+INSERT INTO `review` (product_id, review_title, review_description) VALUES (134245562, 'Susan', 'Very Fancy');
+INSERT INTO `review` (product_id, review_title, review_description) VALUES (134245562, 'Jessie', 'tight and awesome jeans');
+INSERT INTO `review` (product_id, review_title, review_description) VALUES (134245563, 'Susan', 'Very Fancy');
+INSERT INTO `review` (product_id, review_title, review_description) VALUES (134245563, 'Jessie', 'tight and awesome jeans');
+INSERT INTO `review` (product_id, review_title, review_description) VALUES (134245563, 'Luke', 'Didnt like the colour but material was nice');
+INSERT INTO `review` (product_id, review_title, review_description) VALUES (134245564, 'Susan', 'Very Fancy');
+INSERT INTO `review` (product_id, review_title, review_description) VALUES (134245564, 'Luke', 'Didnt like the colour but material was nice');
+INSERT INTO `review` (product_id, review_title, review_description) VALUES (134245565, 'Susan', 'Very Fancy');
+INSERT INTO `review` (product_id, review_title, review_description) VALUES (134245565, 'Luke', 'Didnt like the colour but material was nice');
+INSERT INTO `review` (product_id, review_title, review_description) VALUES (134245565, 'Jessie', 'tight and awesome jeans');
+INSERT INTO `review` (product_id, review_title, review_description) VALUES (134245566, 'Luke', 'Didnt like the colour but material was nice');
+INSERT INTO `review` (product_id, review_title, review_description) VALUES (134245566, 'Jessie', 'You might find if you measure them they could be 32 ');
+INSERT INTO `review` (product_id, review_title, review_description) VALUES (134245567, 'Luke', 'Didnt like the colour but material was nice');
+INSERT INTO `review` (product_id, review_title, review_description) VALUES (134245567, 'Jessie', 'tight and awesome jeans');
+INSERT INTO `review` (product_id, review_title, review_description) VALUES (134245567, 'Luke', 'Didnt like the colour but material was nice');
+INSERT INTO `review` (product_id, review_title, review_description) VALUES (134245567, 'Jessie', 'You might find if you measure them they could be 32 ');
+
 INSERT INTO `product` (product_name,description,img_url,price,inventory) VALUES ('Jeans', 'Relaxed fit jeans - dark blue denim', 'https://cdn.shopify.com/s/files/1/0293/9277/products/Fashion_Nova_09-15_832_large.JPG?v=1491595940', 150, 30);
 INSERT INTO `product` (product_name,description,img_url,price,inventory) VALUES ('Topp og t-skjorter', 'VMBUTTERFLY - Bluser - black', 'https://mosaic01.ztat.net/vgs/media/pdp-gallery/VE/12/1E/0S/PQ/11/VE121E0SP-Q11@10.jpg', 100, 10);
 INSERT INTO `product` (product_name,description,img_url,price,inventory) VALUES ('Kjole', 'Sommerkjole - grey', 'https://mosaic01.ztat.net/vgs/media/pdp-gallery/DP/52/1C/10/1C/11/DP521C101-C11@10.jpg', 200, 50);

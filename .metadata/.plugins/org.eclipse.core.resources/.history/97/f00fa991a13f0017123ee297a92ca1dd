@@ -1,0 +1,9 @@
+CREATE TABLE `review` (
+  `review_id` int(11) NOT NULL AUTO_INCREMENT,
+  `review_title` varchar(255) NOT NULL,
+  `review_description` varchar(255) NOT NULL,
+  PRIMARY KEY (`review_id`)
+) ENGINE=InnoDB AUTO_INCREMENT=134245561 DEFAULT CHARSET=utf8;
+
+
+INSERT INTO `review` (review_title, review_description) VALUES ('Awesome', 'Very Fancy');

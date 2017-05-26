@@ -1,0 +1,55 @@
+package com.reviewsservice;
+
+
+import java.util.List;
+import java.util.Map;
+
+import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.beans.factory.annotation.Qualifier;
+import org.springframework.context.ApplicationContext;
+import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.bind.annotation.RequestParam;
+import org.springframework.web.bind.annotation.ResponseBody;
+import org.springframework.web.bind.annotation.RestController;
+
+import org.springframework.web.bind.annotation.RequestMethod;
+import org.springframework.http.MediaType;
+
+@RestController
+public class ReviewsServiceController {
+	
+    private final ReviewsServiceRepository reviewsRepository;
+    
+    @Autowired 
+    public ReviewsServiceController(ReviewsServiceRepository repository) {
+        this.reviewsRepository = repository;
+    }
+    
+	@RequestMapping(value = "/{reviews}", method = RequestMethod.GET, produces = MediaType.APPLICATION_JSON_VALUE)
+	  public @ResponseBody Iterable findAll() {
+	  return reviewsRepository.findAll();
+	}
+	
+    @RequestMapping("/reviews/details")
+    public @ResponseBody Review findOne(@RequestParam(value="id") int productId ) {	
+    	
+    	Review productDetail = reviewsRepository.findOne(productId);
+    	return productDetail;
+    } 
+    
+    
+    @RequestMapping("/reviews/adddetails")
+    public @ResponseBody Review add(@RequestParam(value="") Review review ) {	
+    	
+    	Review addedReview = reviewsRepository.save(review);
+    	
+//    	Review productDetail = reviewsRepository.findOne(productId);
+    	return addedReview;
+    }
+
+//    @RequestMapping("/products/product")
+//    public Map<String, Object>  index(@RequestParam(value="id") String productId ) {
+//    	ProductDetailService productService = ctx.getBean(ProductDetailService.class);
+//    	return productService.getDetails(productId);
+//    }
+}

@@ -1,0 +1,146 @@
+package com.frontend;
+
+
+import java.net.URL;
+import javax.validation.Valid;
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
+import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.security.core.Authentication;
+import org.springframework.security.core.context.SecurityContextHolder;
+import org.springframework.stereotype.Controller;
+import org.springframework.validation.BindingResult;
+import org.springframework.web.bind.annotation.PathVariable;
+import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.bind.annotation.RequestMethod;
+import org.springframework.web.servlet.ModelAndView;
+import com.fasterxml.jackson.databind.ObjectMapper;
+import com.fasterxml.jackson.databind.ObjectWriter;
+import com.frontend.User;
+import com.frontend.UserService;
+import com.frontend.models.Product;
+import com.frontend.models.Review;
+
+@Controller
+public class LoginController {
+	private static final Logger logger = LoggerFactory.getLogger(LoginController.class);
+	@Autowired
+	private UserService userService;
+	@Autowired
+	private ReviewsServiceRepository reviewsRepository;
+
+	@RequestMapping(value={"/", "/login"}, method = RequestMethod.GET)
+	public ModelAndView login(){
+		ModelAndView modelAndView = new ModelAndView();
+		modelAndView.setViewName("login");
+		return modelAndView;
+	}
+	
+	
+	@RequestMapping(value="/registration", method = RequestMethod.GET)
+	public ModelAndView registration(){
+		ModelAndView modelAndView = new ModelAndView();
+		User user = new User();
+		modelAndView.addObject("user", user);
+		modelAndView.setViewName("registration");
+		return modelAndView;
+	}
+	
+	@RequestMapping(value = "/registration", method = RequestMethod.POST)
+	public ModelAndView createNewUser(@Valid User user, BindingResult bindingResult) {
+		ModelAndView modelAndView = new ModelAndView();
+		User userExists = userService.findUserByEmail(user.getEmail());
+		if (userExists != null) {
+			bindingResult
+					.rejectValue("email", "error.user",
+							"There is already a user registered with the email provided");
+		}
+		if (bindingResult.hasErrors()) {
+			modelAndView.setViewName("registration");
+		} else {
+			userService.saveUser(user);
+			modelAndView.addObject("successMessage", "User has been registered successfully");
+			modelAndView.addObject("user", new User());
+			modelAndView.setViewName("registration");
+			
+		}
+		return modelAndView;
+	}
+	
+	@RequestMapping(value="/admin/home", method = RequestMethod.GET, produces = "application/json")
+	public ModelAndView home(){
+		ModelAndView modelAndView = new ModelAndView();
+		Authentication auth = SecurityContextHolder.getContext().getAuthentication();
+		User user = userService.findUserByEmail(auth.getName());
+		try {
+			ObjectMapper mapper = new ObjectMapper();
+			Product[] obj = mapper.readValue(new URL("http://localhost:8012/products"), Product[].class);
+			logger.warn("This is warn : " + obj.toString());
+			modelAndView.addObject("products",obj);
+			
+		}catch(Exception e){}
+		modelAndView.addObject("userName", "Welcome " + user.getName() + " " + user.getLastName() + " (" + user.getEmail() + ")");
+		modelAndView.setViewName("admin/home");
+		return modelAndView;
+	}
+	
+
+	@RequestMapping(value="/admin/product/{id}", method = RequestMethod.GET, produces = "application/json")
+	public ModelAndView details(@PathVariable(value="id") String productId ){
+		ModelAndView modelAndView = new ModelAndView();
+		try {
+			ObjectMapper mapper = new ObjectMapper();
+			Product obj = mapper.readValue(new URL("http://localhost:8012/products/details?id=" + productId), Product.class);
+			modelAndView.addObject("product",obj);
+			modelAndView.setViewName("admin/product");
+		}catch(Exception e){}
+	return modelAndView;
+	}
+	
+	@RequestMapping(value="/admin/review/{id}", method = RequestMethod.GET, produces = "application/json")
+	public ModelAndView review(@PathVariable(value="id") String productId ){
+		ModelAndView modelAndView = new ModelAndView();
+		Review review = new Review();
+		modelAndView.addObject("productId", productId);
+		modelAndView.addObject("review", review);
+		modelAndView.setViewName("/admin/review");
+		return modelAndView;
+	}
+		
+	@RequestMapping(value = "/admin/review", method = RequestMethod.POST)
+	public ModelAndView createNewReview(@Valid Review review, BindingResult bindingResult) {
+		ModelAndView modelAndView = new ModelAndView();
+		Review newReview = new Review();
+		newReview.setProductId(review.getProductId());
+		newReview.setReviewTitle(review.getReviewTitle());
+		newReview.setReviewDescription(review.getReviewDescription());
+		reviewsRepository.save(newReview);
+		
+		
+//		
+//		ModelAndView modelAndView = new ModelAndView();
+//		
+//		try {
+//			ObjectMapper mapper = new ObjectMapper();
+//			//ObjectWriter ow = new ObjectMapper().writer().withDefaultPrettyPrinter();
+//			//String jsonInString = mapper.writeValue(newReview);
+//			String jsonInString = mapper.writeValueAsString(newReview);
+//			logger.info("http://localhost:8015/review?product=" + jsonInString);
+//			
+//			Review obj = mapper.readValue(new URL("http://localhost:8015/review?product=" + jsonInString), Review.class);
+//			modelAndView.addObject("review",obj);
+//			modelAndView.setViewName("admin/review");
+//		}catch(Exception e){}
+//		
+		
+		
+		
+		
+//		ModelAndView modelAndView = new ModelAndView();
+////			reviewService.saveReview(review);
+//			modelAndView.addObject("review", new Review());
+//			modelAndView.setViewName("/admin/review");
+		return modelAndView;
+	}
+	
+}

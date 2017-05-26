@@ -1,0 +1,88 @@
+package com.reviewsservice;
+
+
+import java.io.IOException;
+import java.net.MalformedURLException;
+import java.net.URL;
+import java.util.List;
+import java.util.Map;
+
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
+import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.beans.factory.annotation.Qualifier;
+import org.springframework.context.ApplicationContext;
+import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.bind.annotation.RequestParam;
+import org.springframework.web.bind.annotation.ResponseBody;
+import org.springframework.web.bind.annotation.RestController;
+
+import com.fasterxml.jackson.core.JsonParseException;
+import com.fasterxml.jackson.databind.JsonMappingException;
+import com.fasterxml.jackson.databind.ObjectMapper;
+
+import com.reviewsservice.Review;
+
+import org.springframework.web.bind.annotation.RequestMethod;
+import org.springframework.http.MediaType;
+
+@RestController
+public class ReviewsServiceController {
+	
+    private final ReviewsServiceRepository reviewsRepository;
+    
+    @Autowired 
+    public ReviewsServiceController(ReviewsServiceRepository repository) {
+        this.reviewsRepository = repository;
+    }
+	private static final Logger logger = LoggerFactory.getLogger(ReviewsServiceController.class);
+	
+	@RequestMapping(value = "/{reviews}", method = RequestMethod.GET, produces = MediaType.APPLICATION_JSON_VALUE)
+	  public @ResponseBody Iterable findAll() {
+	  return reviewsRepository.findAll();
+	}
+	
+    @RequestMapping("/reviews/details")
+    public @ResponseBody Review findOne(@RequestParam(value="id") int productId ) {	
+    	
+    	Review productDetail = reviewsRepository.findOne(productId);
+    	return productDetail;
+    } 
+    
+    
+    @RequestMapping("/review")
+    public @ResponseBody Review add(@RequestParam(value="product") String review ){	
+    	//logger.info(review.getReviewDescription());
+    	Review newReview = new Review();
+    	
+    	//try {
+    	ObjectMapper mapper = new ObjectMapper();
+		Review obj;
+		try {
+			obj = mapper.readValue(review, Review.class);
+			newReview.setReviewTitle(obj.getReviewTitle());
+		} catch (IOException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		}
+			
+	
+		
+		//newReview.setReviewDescription(obj.getReviewDescription());
+		
+    	//reviewsRepository.save(obj);
+    	//Review news = reviewsRepository.findOne(obj.getProductId());
+    	
+    	//String news = "f"; 
+//    	Review productDetail = reviewsRepository.findOne(productId);
+    	//}catch(Exception e){}
+    	return newReview;
+    	
+    }
+
+//    @RequestMapping("/products/product")
+//    public Map<String, Object>  index(@RequestParam(value="id") String productId ) {
+//    	ProductDetailService productService = ctx.getBean(ProductDetailService.class);
+//    	return productService.getDetails(productId);
+//    }
+}

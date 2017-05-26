@@ -1,6 +1,8 @@
 package com.frontend;
 
 
+import java.io.IOException;
+import java.net.MalformedURLException;
 import java.net.URL;
 import javax.validation.Valid;
 import org.slf4j.Logger;
@@ -11,19 +13,27 @@ import org.springframework.security.core.context.SecurityContextHolder;
 import org.springframework.stereotype.Controller;
 import org.springframework.validation.BindingResult;
 import org.springframework.web.bind.annotation.PathVariable;
+import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.servlet.ModelAndView;
+
+import com.fasterxml.jackson.core.JsonParseException;
+import com.fasterxml.jackson.databind.JsonMappingException;
 import com.fasterxml.jackson.databind.ObjectMapper;
+import com.fasterxml.jackson.databind.ObjectWriter;
 import com.frontend.User;
 import com.frontend.UserService;
 import com.frontend.models.Product;
+import com.frontend.models.Review;
 
 @Controller
 public class LoginController {
 	private static final Logger logger = LoggerFactory.getLogger(LoginController.class);
 	@Autowired
 	private UserService userService;
+	@Autowired
+	private ReviewsServiceRepository reviewsRepository;
 
 	@RequestMapping(value={"/", "/login"}, method = RequestMethod.GET)
 	public ModelAndView login(){
@@ -57,7 +67,7 @@ public class LoginController {
 			userService.saveUser(user);
 			modelAndView.addObject("successMessage", "User has been registered successfully");
 			modelAndView.addObject("user", new User());
-			modelAndView.setViewName("registration");
+			modelAndView.setViewName("login");
 			
 		}
 		return modelAndView;
@@ -92,4 +102,33 @@ public class LoginController {
 		}catch(Exception e){}
 	return modelAndView;
 	}
+	
+	@RequestMapping(value="/admin/review/{id}", method = RequestMethod.GET, produces = "application/json")
+	public ModelAndView review(@PathVariable(value="id") String productId ) throws JsonParseException, JsonMappingException, MalformedURLException, IOException{
+		ModelAndView modelAndView = new ModelAndView();
+		
+			ObjectMapper mapper = new ObjectMapper();
+			Review[] obj = mapper.readValue(new URL("http://localhost:8015/reviews/?id=" + productId), Review[].class);
+			modelAndView.addObject("reviews",obj);
+		
+		
+		Review review = new Review();
+		modelAndView.addObject("productIdd", productId);
+		modelAndView.addObject("review", review);
+		modelAndView.setViewName("/admin/review");
+		return modelAndView;
+	}
+		
+	@RequestMapping(value = "/admin/review/{id}", method = RequestMethod.POST)
+	public String createNewReview(@PathVariable(value="id") String productId, @Valid Review review, BindingResult bindingResult) {
+		ModelAndView modelAndView = new ModelAndView();
+		
+		Review newReview = new Review();
+		newReview.setProductId(review.getProductId());
+		newReview.setReviewTitle(review.getReviewTitle());
+		newReview.setReviewDescription(review.getReviewDescription());
+		reviewsRepository.save(newReview);
+		return "redirect:/admin/review/{id}"; 
+	}
+	
 }

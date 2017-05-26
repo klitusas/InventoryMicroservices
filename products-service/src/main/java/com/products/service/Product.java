@@ -1,30 +1,42 @@
 package com.products.service;
 
-import javax.persistence.Column;
+
 import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
-import javax.persistence.SequenceGenerator;
 import javax.persistence.Table;
+
 
 @Entity
 @Table(name = "product")
 public class Product {
 	@Id
-	@GeneratedValue(strategy = GenerationType.AUTO)
-	private String productId;
+	@GeneratedValue(strategy = GenerationType.AUTO)	
+	private int productId;
     private String productName;
     private String description;
     private int price;
     private String imgUrl;
     private int inventory;
-    
 
-	public String getProductId() {
+//
+//    public Product(){ //new
+//    	
+//    }
+//   
+//    public Product(String productName, String description, int price, String imgUrl, int inventory){ //new
+//    	this.productName = productName;
+//    	this.description = description;
+//    	this.price = price;
+//    	this.imgUrl = imgUrl;
+//    	this.inventory = inventory;
+//    }
+//    
+	public int getProductId() {
 		return productId;
 	}
-	public void setProductId(String productId) {
+	public void setProductId(int productId) {
 		this.productId = productId;
 	}
 	public String getProductName() {

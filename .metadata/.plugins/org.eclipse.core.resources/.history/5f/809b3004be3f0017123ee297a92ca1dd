@@ -1,0 +1,11 @@
+package com.reviewsservice;
+
+import java.util.List;
+
+import org.springframework.data.repository.CrudRepository;
+import org.springframework.stereotype.Repository;
+
+@Repository
+public interface ReviewsServiceRepository extends CrudRepository <Review, Integer>{
+	List<Review> findByProductId(int product_id);
+}

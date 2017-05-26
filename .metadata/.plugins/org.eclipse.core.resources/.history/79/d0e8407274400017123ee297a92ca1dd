@@ -1,0 +1,19 @@
+package com.reviewsservice;
+
+import java.util.List;
+
+import org.springframework.data.jpa.repository.Query;
+import org.springframework.data.repository.CrudRepository;
+import org.springframework.data.repository.query.Param;
+import org.springframework.stereotype.Repository;
+
+@Repository
+public interface ReviewsServiceRepository extends CrudRepository <Review, Integer>{
+	List<Review> findByProduct(int product_id);
+	
+	@Query("select u from Review u where u.product_id = 1")
+	List<Review> findByProductsId(@Param("id") int id);
+	
+//	@Query("select u from User u where u.firstname = :#{#customer.firstname}")
+//	List<User> findUsersByCustomersFirstname(@Param("customer") Customer customer);
+}

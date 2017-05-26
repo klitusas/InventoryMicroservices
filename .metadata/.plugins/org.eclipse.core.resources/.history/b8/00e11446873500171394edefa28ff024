@@ -1,9 +1,0 @@
-
-DROP TABLE IF EXISTS `user`;
-CREATE TABLE `user` (
-  `productId` varchar(255) NOT NULL,
-  `productName` varchar(255)
-  PRIMARY KEY (`productId`)
-) ENGINE=InnoDB DEFAULT CHARSET=utf8;
-
-
